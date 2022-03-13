@@ -5,5 +5,5 @@ pyvenv.cfg
 
 .venv/
 .gitignore
-
-
+node_modules
+.env
