@@ -15,11 +15,11 @@
 
           <b-navbar-nav>
             <b-nav-item href="#" disabled>
-                Network<br>: Rinkeby
+                Network<br>: Rinkeby/Localhost
             </b-nav-item>
             <b-nav-item href="#" disabled>
                 Punishment (sec)
-                <drizzle-contract contractName="Todos" method="PUNISHMENT_TIME" />
+                <drizzle-contract contractName="TodoList" method="PUNISHMENT_TIME" />
             </b-nav-item>
             <b-nav-item href="#" disabled>
               <drizzle-account units="Ether" :precision="3" />
@@ -46,7 +46,7 @@
 
       <div class="row">
         <div class="col-sm-12">
-          <h3>Todos</h3>
+          <h3>TodoList</h3>
           <Tasks />
         </div>
       </div>

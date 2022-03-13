@@ -35,7 +35,7 @@ import { mapGetters } from 'vuex'
 import moment from 'moment'
 
 const args = {
-    contractName: 'Todos',
+    contractName: 'TodoList',
     method: 'add',
     methodArgs: ['_description', '_dueDate']
 }

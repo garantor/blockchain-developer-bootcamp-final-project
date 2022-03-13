@@ -2,14 +2,14 @@
   <div v-if="isDrizzleInitialized">
     <div>
       <drizzle-contract
-        contractName="Todos"
+        contractName="TodoList"
         method="getPrize"
         label="Prizes Value"
         units="Ether" :precision="3"
       />
 
       <drizzle-contract-form
-        contractName="Todos"
+        contractName="TodoList"
         method="withdrawPrize"
         :placeholders="['Amount to withdraw']"
       />

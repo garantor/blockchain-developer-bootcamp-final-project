@@ -29,7 +29,7 @@ import { mapGetters } from 'vuex'
 import TaskRow from './TaskRow'
 
 const args = {
-    contractName: 'Todos',
+    contractName: 'TodoList',
     method: 'getTasks',
     methodArgs: ''
 }

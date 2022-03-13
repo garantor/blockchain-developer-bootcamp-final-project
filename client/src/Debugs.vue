@@ -4,7 +4,7 @@
 
       <h5 class="pt-2">Set a Task as Completed</h5>
       <drizzle-contract-form
-        contractName="Todos"
+        contractName="TodoList"
         method="setComplete"
         :placeholders="['Task ID']"
       />
@@ -14,37 +14,37 @@
       
       <h5 class="pt-2">Clear a Task</h5>
       <drizzle-contract-form
-        contractName="Todos"
+        contractName="TodoList"
         method="clear"
         :placeholders="['Task ID']"
       />
 
       <h5 class="pt-2">Remove a Task</h5>
       <drizzle-contract-form
-        contractName="Todos"
+        contractName="TodoList"
         method="remove"
         :placeholders="['Task ID']"
       />
 
       <h5 class="pt-2">Add a Task</h5>
       <drizzle-contract-form
-        contractName="Todos"
+        contractName="TodoList"
         method="add"
         :placeholders="['Description', 'Due Date']"
       />
 
       <h5 class="pt-2">Tasks List</h5>
-      <drizzle-contract contractName="Todos" method="getTasks" />
+      <drizzle-contract contractName="TodoList" method="getTasks" />
 
       <h5 class="pt-2">Pause contract deposits</h5>
       <drizzle-contract-form
-        contractName="Todos"
+        contractName="TodoList"
         method="pause"
       />
 
       <h5 class="pt-2">Unpause contract deposits</h5>
       <drizzle-contract-form
-        contractName="Todos"
+        contractName="TodoList"
         method="unpause"
       />
 

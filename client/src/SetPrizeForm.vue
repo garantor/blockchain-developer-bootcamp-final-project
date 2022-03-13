@@ -24,7 +24,7 @@ export default {
     methods: {
         onSubmit() {
             this.drizzleInstance
-                .contracts['Todos']
+                .contracts['TodoList']
                 .methods['setPrize']
                 .cacheSend(this.taskID, {
                     from: this.activeAccount,

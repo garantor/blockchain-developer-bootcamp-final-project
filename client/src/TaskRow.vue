@@ -104,7 +104,7 @@ export default {
         }
     },
     data: () => ({
-        contractName: 'Todos',
+        contractName: 'TodoList',
         prizeAmount: '',
     })
 }
