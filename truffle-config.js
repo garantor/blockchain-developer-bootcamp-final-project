@@ -27,7 +27,7 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
 // const fs = require('fs');
-const mnemonic =  process.env.MNEMONIC;
+const mnemonic = process.env.PRIVATE_KEY;
 
 module.exports = {
   // Move ABIs where client can access them

@@ -6,7 +6,7 @@
         
           <b-navbar-brand href="#">
             <img src="./assets/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Kitten">
-            Todo List DApp
+            Task Tracker
           </b-navbar-brand>
 
           <!-- <b-navbar-nav>
