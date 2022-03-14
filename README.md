@@ -27,3 +27,11 @@
     - npm run serve
 
 5. Open http://localhost:8080/ URL to interact with the contract. MetaMask extension should be installed on your browser and you need to select the network which matches where the contract is being deployed. Furthermore, you can import your generated accounts in Truffle to cover the fees.
+
+
+## RUNNING TEST
+- From the root folder you can run the test by just using truffle like this ;
+    - truffle test
+
+## Link to screen Recording
+ https://www.loom.com/share/d4f7f5f90e2644f99782beb2094cc312
