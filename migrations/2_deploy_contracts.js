@@ -1,5 +1,5 @@
-const TodoList = artifacts.require("TodoList");
+const multiSig = artifacts.require("MultiSigWithThreshold");
 
 module.exports = function (deployer) {
-  deployer.deploy(TodoList);
+  deployer.deploy(multiSig);
 };

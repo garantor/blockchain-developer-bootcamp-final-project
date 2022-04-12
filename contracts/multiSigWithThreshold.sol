@@ -15,19 +15,17 @@ pragma solidity >=0.4.22 <0.9.0;
 //// revock signed tx
 //get all transaction
 
-contract NewMultiSig  {
-    event NewDeposit(address indexed sender, uint amount);
-    event NewWithdrawal(address indexed sender, uint amount);
-    event NewTransfer(address indexed receiver, uint amount);
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-    //Mapping for transactions List
+contract multiSigWithThreshold is Ownable  {
+
+    //Mapping for transactions List, shows all type of transactions
     mapping(string => uint) public transactionTypeList;
-    mapping(address => uint) private AccountWeightList;
 
+    //Mapping for All TRansactions
     mapping(uint => TransactionObj) listOfAllTransactions;
 
-    // mapping(address => uint) public owners;
-    address private Owners;
+    //
 
     //Modifier to check if the sender has the right weight to call functions
 
@@ -58,10 +56,6 @@ contract NewMultiSig  {
     //Counter for Transaction
     uint public txCounter;
 
-    modifier isOwner{
-        require(msg.sender == Owners, "Only Contract owner can call this enpoint");
-        _;
-    }
 
     modifier isTxSigned(uint _txID){
         require(!isSigned[_txID][msg.sender], "Address already Signed Tx");
@@ -91,7 +85,7 @@ contract NewMultiSig  {
     // The threshold is the number of signatures required to approve a transaction
 
     constructor(){
-        Owners = msg.sender;
+        // Owner = msg.sender;
         transactionTypeList["deposit"] = 0;
         transactionTypeList["withdrawal"] = 80;
         transactionTypeList["transfer"] = 60;
@@ -137,13 +131,13 @@ contract NewMultiSig  {
 
     // return a tuple of all availabe transaction and their details including signature
     function getAllTranactions() public view returns (TransactionObj[] memory){
-      TransactionObj[] memory transactionobj = new TransactionObj[](txCounter);
-      for (uint i = 0; i < txCounter; i++) {
-          TransactionObj storage txobjs = listOfAllTransactions[i];
-          transactionobj[i] = txobjs;
-      }
-      return transactionobj;
-  }
+        TransactionObj[] memory transactionobj = new TransactionObj[](txCounter);
+        for (uint i = 0; i < txCounter; i++) {
+            TransactionObj storage txobjs = listOfAllTransactions[i];
+            transactionobj[i] = txobjs;
+        }
+        return transactionobj;
+    }
     //This get transaction by it index number
     function getTxByID(uint _txID) public view returns(TransactionObj memory) {
         return listOfAllTransactions[_txID];
@@ -170,7 +164,7 @@ contract NewMultiSig  {
 // ===============================================================================
 
       //This add a specific address and their weight
-    function addSignerWithWeight(address _signerAdd, uint _weight) public isOwner {
+    function addSignerWithWeight(address _signerAdd, uint _weight) public onlyOwner {
         AllSigners[_signerAdd] = SignerList({ id:_signerAdd, sigWeight: _weight});
         addressIsASigner[_signerAdd] = true;
         signerCounter++;
