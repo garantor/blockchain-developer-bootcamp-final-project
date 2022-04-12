@@ -96,4 +96,15 @@ contract("ContractArtifacts", function (accounts) {
        const txObj = await contractInstance.getTxByID(0);
        return assert.equal(txObj[2], transactionType, "Value should be 100");
      });
+
+    it("Transfer Ownership", async function (){
+        const signer = accounts[0];
+        const weight = 10;
+        await contractInstance.addSignerWithWeight(signer, weight);
+
+        const newOwner = accounts[1];
+        await contractInstance.transferOwnership(newOwner);
+        const owner = await contractInstance.owner();
+        return assert.equal(owner, newOwner, "Owner should be accounts[1]");
+    })
 });
