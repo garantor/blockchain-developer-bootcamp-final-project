@@ -1,29 +1,60 @@
-import './App.css';
-import contract from ".//contracts/multiSigWithThreshold.json";
-import { useEffect } from 'react';
-import Web3 from 'web3';
-
-const ABI = contract.abi;
-// console.log(ABI)
-
+import { useState } from "react";
+import Web3 from "web3";
+import ContractArtifacts from "contracts/MuiltSigWithThreshold.json";
+import {
+  getOwner,
+  signerCounter,
+  addedSigner,
+  connectWindow,
+  addTransaction,
+  signTransaction,
+  getSignerByAddress,
+  getAllTx,
+  getOneTx,
+} from "./web3client"; 
+import {Routes, Route} from 'react-router-dom'
+import MiniDrawer from "./Components/sidebar";
+import Layout from './Components/Layout'
+import Home from './Components/Home'
+import MissingPage from './Components/MissingPage'
 function App() {
-  const providerUrl = process.env.PROVIDER_URL || 'http://localhost:8545';
-  useEffect(() => {
-    const web3 = new Web3(providerUrl); 
-    const provider = window.ethereum;
+  const [defaultAddress, setDefaultAddress] = useState("");
+  const [bal, setBal] = useState(0);
+  const [contractInstance, setContractInstance] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
 
-    if(typeof provider !== 'undefined'){
-      provider.request({method: 'eth_requestAccounts'}).then(accounts => {
-        console.log(accounts);
-      }).catch (err => {
-        console.log(err);
-      });
-    }
-  }, []);
+  async function connector(){
+    const [contractObj, defaultAddress, bal] = await connectWindow();
+    setContractInstance(contractObj);
+    setDefaultAddress(defaultAddress);
+    setBal(bal);
+    setIsConnected(true);
+  }
+
+  function handleListBtn (e) {
+    console.log(e.target.value)
+    console.log(e);
+  }
+
+
+
   return (
-    <div className="App">
-      <h1> Hello World</h1>
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <Layout
+            account={defaultAddress}
+            balance={bal}
+            btnhandler={connector}
+            connection={isConnected}
+            handleListBtn={handleListBtn}
+          />
+        }
+      />
+      <Route path="/" element={<MiniDrawer />} />
+      <Route path="*" element={<MissingPage />} />
+    </Routes>
   );
 }
 

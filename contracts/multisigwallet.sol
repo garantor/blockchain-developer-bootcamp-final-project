@@ -17,7 +17,7 @@ pragma solidity >=0.4.22 <0.9.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract multiSigWithThreshold is Ownable  {
+contract MuiltSigWithThreshold is Ownable  {
 
     //Mapping for transactions List, shows all type of transactions
     mapping(string => uint) public transactionTypeList;
@@ -144,7 +144,7 @@ contract multiSigWithThreshold is Ownable  {
     }
 
     //This adds a specific new type of transaction type and also the weight threshold required to execute
-    function addTxWeight(string memory _name, uint _weight) public {
+    function addTxWithThreshold(string memory _name, uint _weight) public {
         transactionTypeList[_name]=_weight;
         emit NewTypeOfTransactionAdded(msg.sender, _name, _weight);
     }

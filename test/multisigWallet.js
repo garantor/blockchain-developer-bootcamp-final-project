@@ -1,5 +1,5 @@
 // Import statements
-const ContractArtifacts = artifacts.require("multiSigWithThreshold");
+const ContractArtifacts = artifacts.require("MuiltSigWithThreshold");
 
 // Contract declaration
 contract("ContractArtifacts", function (accounts) {
@@ -35,12 +35,12 @@ contract("ContractArtifacts", function (accounts) {
     await contractInstance.addSignerWithWeight(signer, weight);
     const signerList = await contractInstance.getSignerByAddress(accounts[1]);
     return assert.equal(
-        signerList[0],
-        signer,
-        "Account should be added to signer list"
+      signerList[0],
+      signer,
+      "Account should be added to signer list"
     );
-    });
-    //Test 4, check that the signer is added with the correct weight
+  });
+  //Test 4, check that the signer is added with the correct weight
 
   it("Assign new signer and check it weight", async function () {
     const signer = accounts[1];
@@ -64,47 +64,42 @@ contract("ContractArtifacts", function (accounts) {
     return assert.equal(txObj[0], recipient, "Recipient should be accounts[2]");
   });
 
+  it("Add a new transaction and check the value", async function () {
+    const signer = accounts[0];
+    const weight = 10;
+    await contractInstance.addSignerWithWeight(signer, weight);
 
-    it("Add a new transaction and check the value", async function () {
-        const signer = accounts[0];
-        const weight = 10;
-        await contractInstance.addSignerWithWeight(signer, weight);
+    const recipient = accounts[2];
+    const value = 100;
+    const transactionType = "withdrawal";
 
-        const recipient = accounts[2];
-        const value = 100;
-        const transactionType = "withdrawal";
+    await contractInstance.addTransaction(recipient, value, transactionType);
+    const txObj = await contractInstance.getTxByID(0);
+    return assert.equal(txObj[1], value, "Value should be 100");
+  });
 
-        await contractInstance.addTransaction(recipient, value, transactionType);
-        const txObj = await contractInstance.getTxByID(0);
-        return assert.equal(
-        txObj[1],
-        value,
-        "Value should be 100"
-        );
-    });
+  it("Add a new transaction and transaction type", async function () {
+    const signer = accounts[0];
+    const weight = 10;
+    await contractInstance.addSignerWithWeight(signer, weight);
 
-    it("Add a new transaction and transaction type", async function () {
-       const signer = accounts[0];
-       const weight = 10;
-       await contractInstance.addSignerWithWeight(signer, weight);
+    const recipient = accounts[2];
+    const value = 100;
+    const transactionType = "withdrawal";
 
-       const recipient = accounts[2];
-       const value = 100;
-       const transactionType = "withdrawal";
+    await contractInstance.addTransaction(recipient, value, transactionType);
+    const txObj = await contractInstance.getTxByID(0);
+    return assert.equal(txObj[2], transactionType, "Value should be 100");
+  });
 
-       await contractInstance.addTransaction(recipient, value, transactionType);
-       const txObj = await contractInstance.getTxByID(0);
-       return assert.equal(txObj[2], transactionType, "Value should be 100");
-     });
+  it("Transfer Ownership", async function () {
+    const signer = accounts[0];
+    const weight = 10;
+    await contractInstance.addSignerWithWeight(signer, weight);
 
-    it("Transfer Ownership", async function (){
-        const signer = accounts[0];
-        const weight = 10;
-        await contractInstance.addSignerWithWeight(signer, weight);
-
-        const newOwner = accounts[1];
-        await contractInstance.transferOwnership(newOwner);
-        const owner = await contractInstance.owner();
-        return assert.equal(owner, newOwner, "Owner should be accounts[1]");
-    })
+    const newOwner = accounts[1];
+    await contractInstance.transferOwnership(newOwner);
+    const owner = await contractInstance.owner();
+    return assert.equal(owner, newOwner, "Owner should be accounts[1]");
+  });
 });
