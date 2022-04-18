@@ -13,10 +13,11 @@ import {
   getOneTx,
 } from "./web3client"; 
 import {Routes, Route} from 'react-router-dom'
-import MiniDrawer from "./Components/sidebar";
 import Layout from './Components/Layout'
 import Home from './Components/Home'
 import MissingPage from './Components/MissingPage'
+import Transactions from "./Components/Transactions";
+import Signers from "./Components/Signers";
 function App() {
   const [defaultAddress, setDefaultAddress] = useState("");
   const [bal, setBal] = useState(0);
@@ -53,7 +54,8 @@ function App() {
         }
       >
         {/* <Route path="/" element={<MiniDrawer />} /> */}
-        <Route path="/signers" element={<Home />} />
+        <Route path="/signers" element={<Signers />} />
+        <Route path="/transactions" element={<Transactions />} />
         <Route path="*" element={<MissingPage />} />
       </Route>
     </Routes>

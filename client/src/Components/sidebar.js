@@ -16,6 +16,13 @@ import Home from "./Home";
 import Button from "@mui/material/Button";
 import { useNavigate } from 'react-router-dom'
 import { Settings, SubjectOutlined } from "@material-ui/icons";
+import { makeStyles } from "@mui/styles";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Fade from '@mui/material/Fade';
+import { Transaction } from "@solana/web3.js";
+
 
 const drawerWidth = 240;
 const menuItem = [
@@ -23,6 +30,11 @@ const menuItem = [
     text: "Transactions",
     icon: <SubjectOutlined />,
     link: "/transactions",
+    menulist :[
+     " Add Transaction",
+     " View Transactions",
+     "Create Transaction",
+    ]
   },
   {
     text: "Signers",
@@ -42,8 +54,23 @@ const menuItem = [
 
 ];
 
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+  },
+});
+
 export default function ClippedDrawer({ handleListBtn }) {
   const history = useNavigate();
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -57,45 +84,74 @@ export default function ClippedDrawer({ handleListBtn }) {
           </Typography>
         </Toolbar>
       </AppBar>
-      
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          classes: { paper: { width: drawerWidth } },
-          [`& .MuiDrawer-paper`]: {
+      <div className={classes.root}>
+        <Drawer
+          variant="permanent"
+          sx={{
             width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-      >
-        <Toolbar />
-        <Box sx={{ overflow: "auto" }}>
-          <List>
-            <Button variant="contained">Contained</Button>
-            {menuItem.map((item) => (
-                console.log(item.text),
-                (
-                 
-                    <ListItem button key={item.text} onClick={() => history(item.link)}>
-                      <ListItemIcon>
-                        {item.icon}
-                      </ListItemIcon>
+            flexShrink: 0,
+            classes: { paper: { width: drawerWidth } },
+            [`& .MuiDrawer-paper`]: {
+              width: drawerWidth,
+              boxSizing: "border-box",
+            },
+          }}
+        >
+          <Toolbar />
+          <Box sx={{ overflow: "auto" }}>
+              
+              {menuItem.map((item) => (
+            <List>
+
+                <Button
+                id="fade-button"
+                aria-controls={open ? "fade-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+               { item.text}
+              </Button>
+              <Menu
+                id="fade-menu"
+                MenuListProps={{
+                  "aria-labelledby": "fade-button",
+                }}
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                TransitionComponent={Fade}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
+              </Menu>
+            </List>
+            
+                
+              ))}
+              
+              
+              {/* {menuItem.map(
+                (item) => (
+                  console.log(item.text),
+                  (
+                    <ListItem
+                      button
+                      key={item.text}
+                      onClick={() => history(item.link)}
+                    >
+                      <ListItemIcon>{item.icon}</ListItemIcon>
                       <ListItemText primary={item.text} />
                     </ListItem>
-               
+                  )
                 )
-              )
-            )}
-          </List>
-          <Divider />
-        </Box>
-      </Drawer>
-      {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
-        <Toolbar />
-        {/* <Home /> */}
-      </Box>
-    // </Box>
+              )} */}
+            <Divider />
+          </Box>
+        </Drawer>
+      </div>
+      <Toolbar />
+    </Box>
   );
 }

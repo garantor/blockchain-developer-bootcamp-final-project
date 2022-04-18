@@ -1,5 +1,6 @@
-import Feed from "./Feed";
 import {Container, Box} from "@mui/material";
+
+
 function Home({posts}) {
   return (
     // <main className="Home">
