@@ -1,17 +1,11 @@
 import Feed from "./Feed";
+import {Container, Box} from "@mui/material";
 function Home({posts}) {
   return (
-    <main className="Home">
+    // <main className="Home">
+   <Box sx={{ display: "flex" }}>
       <h1> HOME sweet Home </h1>
-      {/* <login /> */}
-      {/* {posts.length ? (
-        <Feed posts={posts} />
-      ) : (
-        <p style={{marginTop: "2rem"}}>
-          No posts to display.
-        </p>
-      )} */}
-    </main>
+    </Box>
   );
 }
 

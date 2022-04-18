@@ -32,8 +32,8 @@ function App() {
   }
 
   function handleListBtn (e) {
-    console.log(e.target.value)
-    console.log(e);
+    // console.log(e.target.value)
+    // console.log(e);
   }
 
 
@@ -51,9 +51,11 @@ function App() {
             handleListBtn={handleListBtn}
           />
         }
-      />
-      <Route path="/" element={<MiniDrawer />} />
-      <Route path="*" element={<MissingPage />} />
+      >
+        {/* <Route path="/" element={<MiniDrawer />} /> */}
+        <Route path="/signers" element={<Home />} />
+        <Route path="*" element={<MissingPage />} />
+      </Route>
     </Routes>
   );
 }

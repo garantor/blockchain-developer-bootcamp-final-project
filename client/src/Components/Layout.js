@@ -14,17 +14,6 @@ function Layout({ account, balance, btnhandler, connection, handleListBtn }) {
       ) : (
         <ResponsiveAppBar handleConnect={btnhandler} />
       )}
-      {/* <ResponsiveAppBar />
-      <MiniDrawer /> */}
-      {/* <ResponsiveAppBar /> */}
-      {/* <Header
-        title="MultiSig with Threshold"
-        Accounts={account}
-        Balances={balance}
-        btnhandler={btnhandler}
-        connection={connection}
-      />
-      {connection ? <NavBar /> : <></>} */}
 
       <Outlet />
       {/* <Footer /> */}
